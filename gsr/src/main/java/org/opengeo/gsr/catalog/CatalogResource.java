@@ -77,6 +77,10 @@ public class CatalogResource extends AbstractCatalogResource {
     
     @Override
     protected Object handleObjectGet() {      
+        String ws = getAttribute("folder");
+        if(ws != null)
+            return new org.opengeo.gsr.types.Catalog(catalog.getWorkspaceByName(ws));
+        
        return new org.opengeo.gsr.types.Catalog(catalog);
     }
     
