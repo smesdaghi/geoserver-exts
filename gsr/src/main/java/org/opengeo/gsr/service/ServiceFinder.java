@@ -4,7 +4,10 @@ import org.geoserver.catalog.rest.AbstractCatalogFinder;
 import org.geoserver.config.GeoServer;
 import org.geoserver.ows.Dispatcher;
 import org.geoserver.wms.WMS;
+import org.opengeo.gsr.catalog.CatalogListResource;
+import org.opengeo.gsr.catalog.CatalogResource;
 import org.restlet.data.MediaType;
+import org.restlet.data.Method;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
 import org.restlet.resource.Resource;
@@ -26,9 +29,21 @@ public class ServiceFinder extends AbstractCatalogFinder {
 
     public Resource findTarget(Request request, Response response) {
         Resource resource = null;
-
+        
         try {
-            throw new Exception("Not implemented yet");
+            String folder = getAttribute(request, "folder");
+
+            if (folder == null && request.getMethod() == Method.GET) {
+                resource = new CatalogResource(null, request, response, catalog);
+            }
+            
+            if (folder != null) { //check that folder(workspace) exists
+                if (catalog.getWorkspaceByName(folder) == null) {
+                    throw new Exception("Workspace Does Not Exist");
+                }
+                
+                resource = new CatalogResource(null, request, response, catalog);
+            }
         } catch (Exception e) {
             response.setEntity("NOT IMPLEMENTED", MediaType.TEXT_HTML);
             resource = new Resource(getContext(), request, response);

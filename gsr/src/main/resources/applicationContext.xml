@@ -25,16 +25,22 @@
     </bean>
 
     <bean id="restMapping" class="org.geoserver.rest.RESTMapping">
-    <property name="routes">
-            <map>
-                <entry>
-                    <key>
-                        <value>/services?{params}</value>
-                    </key>
-                    <value>serviceFinder</value>
-                </entry>
-            </map>
-    </property>
+	<property name="routes">
+		<map>
+			<entry>
+				<key>
+					<value>/services?f={format}</value>
+				</key>
+				<value>serviceFinder</value>
+			</entry>
+			<entry>
+				<key>
+					<value>/services/{folder}?f={format}</value>
+				</key>
+				<value>serviceFinder</value>
+			</entry>
+		</map>
+	</property>
     </bean>
 
 </beans>
