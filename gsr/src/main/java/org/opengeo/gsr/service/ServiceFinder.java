@@ -4,7 +4,6 @@ import org.geoserver.catalog.rest.AbstractCatalogFinder;
 import org.geoserver.config.GeoServer;
 import org.geoserver.ows.Dispatcher;
 import org.geoserver.wms.WMS;
-import org.opengeo.gsr.catalog.CatalogListResource;
 import org.opengeo.gsr.catalog.CatalogResource;
 import org.restlet.data.MediaType;
 import org.restlet.data.Method;
@@ -48,6 +47,7 @@ public class ServiceFinder extends AbstractCatalogFinder {
             response.setEntity("NOT IMPLEMENTED", MediaType.TEXT_HTML);
             resource = new Resource(getContext(), request, response);
         }
+        
         return resource;
     }
 
